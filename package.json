@@ -1,0 +1,33 @@
+{
+  "name": "ms-stream",
+  "version": "1.0.0",
+  "description": "Microservice for stream backend",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/first-apps/ms-stream.git"
+  },
+  "keywords": [
+    "microservice",
+    "node",
+    "express",
+    "stream"
+  ],
+  "author": "dikshit-n",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/first-apps/ms-stream/issues"
+  },
+  "homepage": "https://github.com/first-apps/ms-stream#readme",
+  "devDependencies": {
+    "nodemon": "^3.1.7"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "express": "^4.21.1",
+    "mongoose": "^8.8.3"
+  }
+}
