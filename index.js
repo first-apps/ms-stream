@@ -1,6 +1,11 @@
 // module imports
 const express = require("express");
-const { episode: episodeRouter } = require("./routes");
+const {
+  episode: episodeRouter,
+  genre: genreRouter,
+  show: showRouter,
+  release: releaseRouter,
+} = require("./routes");
 
 // config
 const app = express();
@@ -9,6 +14,9 @@ require("dotenv").config();
 
 // routers
 app.use("/episode", episodeRouter);
+app.use("/genre", genreRouter);
+app.use("/show", showRouter);
+app.use("/release", releaseRouter);
 
 // initiate server
 app.listen(process.env.PORT, (err) =>

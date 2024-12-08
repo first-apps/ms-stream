@@ -1,16 +1,14 @@
 // module imports
+const { Types } = require("mongoose");
 const {
   db: { mongoose },
 } = require("../setup");
 
 const episodeSchema = new mongoose.Schema({
-  title: String,
-  description: String,
   name: String,
-  category_id: String,
-  type: String,
-  genre: [String],
-  tags: [String],
+  description: String,
+  show_id: Types.ObjectId,
+  release_id: Types.ObjectId,
   video_link: String,
 });
 
