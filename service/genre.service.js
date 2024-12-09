@@ -1,4 +1,4 @@
-const { Genre } = require("../model");
+const { Genre, Show } = require("../model");
 
 class GenreService {
   // create
@@ -18,13 +18,18 @@ class GenreService {
   }
   // update
   async update(genre_id, data) {
+    const oldGenre = await this.read(genre_id);
     const genre = await Genre.findOneAndUpdate({ _id: genre_id }, data, {
       new: true,
     });
-    if (!genre) {
-      throw { status: 404, message: "Not Found" };
-    }
-    return genre.save();
+    const newGenre = await genre.save();
+
+    // update shows containing this genre
+    await Show.updateMany(
+      { genre: oldGenre.name },
+      { $set: { "genre.$": newGenre.name } }
+    );
+    return newGenre;
   }
   // delete
   async delete(genre_id) {
@@ -32,6 +37,11 @@ class GenreService {
     if (!genre) {
       throw { status: 404, message: "Not Found" };
     }
+    // remove this genre in shows where it is assigned
+    await Show.updateMany(
+      { genre: genre.name },
+      { $pull: { genre: genre.name } }
+    );
   }
 }
 
