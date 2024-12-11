@@ -10,6 +10,7 @@ const episodeSchema = new mongoose.Schema({
   show_id: Types.ObjectId,
   release_id: Types.ObjectId,
   video_link: String,
+  sequence: Number,
 });
 
 module.exports = mongoose.model("episode", episodeSchema);

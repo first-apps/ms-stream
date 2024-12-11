@@ -9,6 +9,7 @@ const releaseSchema = new mongoose.Schema({
   show_id: Types.ObjectId,
   description: String,
   type: String,
+  sequence: Number,
 });
 
 module.exports = mongoose.model("release", releaseSchema);

@@ -3,7 +3,13 @@ const { Release } = require("../model");
 class ReleaseService {
   // create
   async create(data) {
-    return Release.create(data);
+    const lastRelease = await Release.findOne({ show_id: data.show_id }).sort({
+      sequence: -1,
+    });
+    return Release.create({
+      ...data,
+      sequence: (lastRelease?.sequence || 0) + 1,
+    });
   }
   // read
   async readAll() {
@@ -32,6 +38,11 @@ class ReleaseService {
     if (!release) {
       throw { status: 404, message: "Not Found" };
     }
+    // update the following sequence
+    await Release.updateMany(
+      { show_id: release.show_id, sequence: { $gt: release.sequence } },
+      { $inc: { sequence: -1 } }
+    );
   }
 }
 
